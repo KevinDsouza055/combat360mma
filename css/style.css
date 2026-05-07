@@ -218,6 +218,38 @@ section{padding:7rem 0;position:relative}
     linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.55) 50%,#0a0a0a 100%),
     linear-gradient(90deg,rgba(0,0,0,.7) 0%,transparent 50%,rgba(0,0,0,.7) 100%);
 }
+/* Cinematic Smoke/Fog Overlay */
+.hero-smoke {
+  position: absolute; inset: 0; z-index: 1; opacity: 0.4; pointer-events: none;
+  background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png'); /* Subtle texture base */
+}
+.hero-smoke::after {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(200,16,46,0.05), transparent 70%);
+  filter: blur(60px); animation: smokeDrift 20s linear infinite;
+}
+@keyframes smokeDrift {
+  0% { transform: translate(-5%) rotate(0deg) scale(1); }
+  50% { transform: translate(5%) rotate(2deg) scale(1.1); }
+  100% { transform: translate(-5%) rotate(0deg) scale(1); }
+}
+/* Premium Lighting Spotlight */
+.hero-lighting {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(200,16,46,0.15) 0%, transparent 40%);
+  mix-blend-mode: screen;
+}
+/* Cinematic Red Embers Container */
+.hero-particles {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden;
+}
+.ember {
+  position: absolute; background: var(--blood); border-radius: 50%;
+  filter: blur(1.5px); box-shadow: 0 0 10px var(--blood);
+  will-change: transform, opacity;
+  opacity: 0;
+}
+
 .hero-grain{
   position:absolute;inset:0;z-index:1;opacity:.07;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -269,17 +301,19 @@ section{padding:7rem 0;position:relative}
 }
 @keyframes scrollLine{to{top:100%}}
 
-/* Floating glove */
-.hero-glove{
-  position:absolute;right:-60px;bottom:-40px;width:min(45vw,520px);z-index:2;
-  filter:drop-shadow(0 30px 60px rgba(200,16,46,.35));
-  animation:floatGlove 6s ease-in-out infinite;
-  pointer-events:none;
+/* 3D Glove Cinematic Wrapper */
+.hero-glove-wrapper {
+  position: absolute; right: -40px; bottom: -20px; width: min(45vw, 550px); z-index: 4;
+  perspective: 2000px; pointer-events: none;
 }
-@keyframes floatGlove{
-  0%,100%{transform:translateY(0) rotate(-8deg)}
-  50%{transform:translateY(-25px) rotate(-12deg)}
+.hero-glove {
+  width: 100%; height: auto; display: block;
+  filter: drop-shadow(0 40px 80px rgba(0,0,0,0.8)) brightness(1.1) contrast(1.1);
+  will-change: transform, filter;
+  /* Initial state before GSAP takes over */
+  transform: rotateY(-15deg) rotateX(10deg);
 }
+
 @media(max-width:768px){
   .hero-glove{width:60vw;right:-30px;bottom:-20px;opacity:.55}
   .hero-meta{display:none}

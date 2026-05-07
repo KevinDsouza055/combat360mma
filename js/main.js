@@ -276,14 +276,98 @@ document.addEventListener('DOMContentLoaded', () => {
     el.addEventListener('touchend', resetTilt);
   });
 
-  // ---------- Hero 3D Glove Interaction ----------
-  if (heroGlove) {
-    document.addEventListener('mousemove', (e) => {
-      const moveX = (e.clientX - window.innerWidth / 2) * 0.02;
-      const moveY = (e.clientY - window.innerHeight / 2) * 0.02;
-      // Combine with existing floating animation in CSS by using a wrapper or applying style
-      heroGlove.style.left = `calc(50% + ${moveX}px)`; // Relative offset
-      heroGlove.style.filter = `drop-shadow(${moveX * -1}px ${moveY * -1}px 60px rgba(200,16,46,0.35))`;
+  // ---------- Cinematic GSAP Hero Animations ----------
+  if (typeof gsap !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1. Premium Glove Floating & Rotation
+    // This simulates a 3D rotating metallic object
+    const gloveTimeline = gsap.timeline({
+      repeat: -1,
+      defaults: { duration: 4, ease: "sine.inOut" }
     });
+
+    gloveTimeline
+      .to('.hero-glove', { y: -30, rotationZ: -12, rotationY: 10, rotationX: 5 })
+      .to('.hero-glove', { y: 0, rotationZ: -8, rotationY: -15, rotationX: 10 });
+
+    // 2. Mouse-Reactive Lighting & Parallax
+    const heroLighting = document.querySelector('.hero-lighting');
+    const heroSection = document.querySelector('.hero');
+
+    if (heroSection) {
+      heroSection.addEventListener('mousemove', (e) => {
+        const { clientX, clientY } = e;
+        const xPos = (clientX / window.innerWidth) * 100;
+        const yPos = (clientY / window.innerHeight) * 100;
+
+        // Update CSS variable for the spotlight
+        heroLighting.style.setProperty('--mouse-x', `${xPos}%`);
+        heroLighting.style.setProperty('--mouse-y', `${yPos}%`);
+
+        // Micro-parallax on the glove based on mouse position
+        gsap.to('.hero-glove-wrapper', {
+          x: (clientX - window.innerWidth / 2) * 0.03,
+          y: (clientY - window.innerHeight / 2) * 0.03,
+          duration: 1,
+          ease: "power2.out"
+        });
+      });
+    }
+
+    // 3. Scroll-Triggered Cinematic Reveal
+    gsap.to('.hero-glove', {
+      scrollTrigger: {
+        trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true
+      },
+      y: 150, scale: 1.1, rotationY: 45, opacity: 0.2, filter: 'blur(10px)'
+    });
+
+    // 4. Hero Text Stagger
+    gsap.from('.hero h1 .line span', {
+      y: 100, rotateX: -45, opacity: 0, duration: 1.2, stagger: 0.15, ease: "power4.out", delay: 0.5
+    });
+
+    // 5. Cinematic Red Embers System
+    // PERFORMANCE: We use a limited count (30) to keep FPS high.
+    // GSAP transforms are GPU-accelerated for smooth motion.
+    const particleContainer = document.querySelector('.hero-particles');
+    if (particleContainer) {
+      const emberCount = 30; // Customize: Increase for density, decrease for performance.
+      for (let i = 0; i < emberCount; i++) {
+        const ember = document.createElement('div');
+        ember.className = 'ember';
+        particleContainer.appendChild(ember);
+
+        // Randomize initial properties for organic feel
+        const size = gsap.utils.random(2, 5);
+        const duration = gsap.utils.random(6, 12); // Customize: duration of float up
+
+        gsap.set(ember, {
+          width: size, height: size,
+          left: gsap.utils.random(0, 100) + "%",
+          bottom: "-10%",
+          opacity: 0
+        });
+
+        // Main Floating Animation (Starts here)
+        gsap.to(ember, {
+          y: -window.innerHeight - 100,
+          x: gsap.utils.random(-150, 150), // Cinematic horizontal drift
+          opacity: gsap.utils.random(0.4, 0.8),
+          rotation: gsap.utils.random(0, 360),
+          duration: duration,
+          delay: gsap.utils.random(0, 10),
+          repeat: -1,
+          ease: "linear"
+        });
+
+        // High-end flickering light effect
+        gsap.to(ember, {
+          opacity: 0.2, duration: gsap.utils.random(0.5, 1.5),
+          repeat: -1, yoyo: true, ease: "sine.inOut"
+        });
+      }
+    }
   }
 });
