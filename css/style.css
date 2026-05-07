@@ -70,26 +70,6 @@ h3{font-size:clamp(1.5rem,3vw,2.4rem)}
 .container{max-width:var(--container);margin:0 auto;padding:0 1.5rem}
 section{padding:7rem 0;position:relative}
 
-/* Loader */
-.loader{
-  position:fixed;inset:0;z-index:9999;
-  background:#000;display:flex;align-items:center;justify-content:center;
-  transition:opacity .8s var(--ease),visibility .8s var(--ease);
-}
-.loader.hidden{opacity:0;visibility:hidden}
-.loader-mark{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(3rem,8vw,6rem);
-  letter-spacing:.1em;
-  color:#fff;
-  position:relative;overflow:hidden;
-}
-.loader-mark::after{
-  content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;
-  background:var(--blood);animation:loadBar 1.4s var(--ease) forwards;
-}
-@keyframes loadBar{to{width:100%}}
-
 /* ============== NAVBAR ============== */
 .nav{
   position:fixed;top:18px;left:50%;transform:translateX(-50%);
@@ -650,4 +630,86 @@ footer{padding:5rem 0 2rem;background:#060606;border-top:1px solid rgba(255,255,
 @media(max-width:768px){
   section{padding:5rem 0}
   .hero{padding:6rem 0 2rem}
+}
+
+/* New media query for very small screens (e.g., phones) */
+@media(max-width:480px){
+  .container{padding:0 1rem} /* Reduce container padding for tighter fit */
+  section{padding:4rem 0} /* Further reduce section padding */
+  .hero{padding:5rem 0 1rem} /* Further reduce hero padding */
+
+  /* Adjust font sizes for headings and key text elements */
+  h1{font-size:clamp(2.5rem,9vw,8.5rem)}
+  h2{font-size:clamp(2rem,6vw,5rem)}
+  .hero h1{font-size:clamp(3rem,11vw,9.5rem)}
+  .page-head h1{font-size:clamp(2.5rem,10vw,7rem)}
+  .mobile-menu a{font-size:clamp(1.8rem,8vw,3.5rem)}
+  .foot-brand{font-size:1.2rem}
+  .faq-q{font-size:1.2rem}
+
+  /* Navigation and mobile menu adjustments */
+  .nav-logo{font-size:1.2rem}
+  .hamburger{width:38px;height:38px} /* Smaller hamburger icon */
+  .hamburger span{left:9px;width:18px} /* Adjust hamburger lines */
+  .hamburger span:nth-child(1){top:13px}
+  .hamburger span:nth-child(2){top:18px;width:12px}
+  .hamburger span:nth-child(3){top:23px}
+  .hamburger.active span:nth-child(1){top:18px;transform:rotate(45deg)}
+  .hamburger.active span:nth-child(3){top:18px;transform:rotate(-45deg);width:18px}
+
+  /* Program cards adjustments */
+  .program-card .pc-content{padding:1.2rem}
+  .program-card .info h3{font-size:1.6rem}
+  .program-card .info p{font-size:.8rem}
+  .chip{padding:.2rem .6rem;font-size:.6rem}
+
+  /* Coach cards and modal adjustments */
+  .coach-info{padding:1rem}
+  .coach-info h3{font-size:1.4rem}
+  .coach-info .role{font-size:.6rem}
+  .coach-info .know{font-size:.65rem}
+  .owner-badge{padding:.3rem .7rem;font-size:.6rem}
+
+  .modal-card{padding:0;border-radius:10px}
+  .modal-body{padding:1.5rem}
+  .modal-body h3{font-size:2rem}
+  .modal-close{width:38px;height:38px;top:1rem;right:1rem;font-size:1.2rem}
+
+  /* Testimonial cards adjustments */
+  .testi-card{padding:1.5rem}
+  .testi-card p{font-size:.85rem}
+  .testi-avatar{width:40px;height:40px;font-size:1rem}
+  .testi-name{font-size:.85rem}
+  .testi-role{font-size:.7rem}
+
+  /* Pricing cards adjustments */
+  .price-card{padding:2rem 1.5rem}
+  .price-card .tier{font-size:1.4rem}
+  .price{font-size:3rem}
+  .price small{font-size:.8rem}
+  .price-card ul{margin:1rem 0 1.5rem} /* Adjust list margin */
+  .price-card li{font-size:.8rem;padding:.5rem 0}
+  .price-card .btn{padding:.9rem 1.5rem;font-size:.7rem}
+
+  /* Form adjustments */
+  .form-card{padding:1.5rem}
+  .field label{font-size:.65rem}
+  .field input, .field select, .field textarea{padding:.8rem 1rem;font-size:.85rem}
+  .field .err-msg{font-size:.7rem}
+
+  /* Floating CTA adjustments */
+  .float-cta{padding:.8rem 1.2rem;font-size:.7rem;right:16px;bottom:16px}
+
+  /* CTA banner adjustments */
+  .cta-banner h2{font-size:clamp(2rem,8vw,7rem)}
+  .cta-banner p{font-size:.9rem}
+  .cta-banner .btn{padding:.9rem 1.5rem;font-size:.7rem}
+
+  /* Footer adjustments */
+  .foot-grid{gap:1.5rem}
+  .foot-brand{font-size:1.8rem}
+  .foot-col h4{font-size:.7rem;margin-bottom:1rem}
+  .foot-col li{font-size:.8rem;margin-bottom:.5rem}
+  .socials a{width:36px;height:36px;font-size:.8rem}
+  .foot-bottom{font-size:.7rem}
 }

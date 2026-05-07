@@ -3,14 +3,6 @@
    FAQ, snackbar, form validation, modals, swiper init. */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // ---------- Loader ----------
-  const loader = document.querySelector('.loader');
-  if (loader) {
-    window.addEventListener('load', () => {
-      setTimeout(() => loader.classList.add('hidden'), 700);
-    });
-    setTimeout(() => loader.classList.add('hidden'), 2200); // fallback
-  }
 
   // ---------- Year ----------
   const y = document.getElementById('year');
