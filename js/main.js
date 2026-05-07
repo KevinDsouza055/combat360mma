@@ -115,11 +115,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---------- Coach Modal ----------
   const coachData = {
     owner: {
-      name: 'Marco "Iron" Reyes',
+      name: 'Vikram "Iron" Singh',
       role: 'Founder · Head Coach',
       img: 'assets/images/coach-owner.jpg',
       bio: [
-        'Former professional MMA fighter with 14 years inside the cage and over a decade coaching world-class athletes. Marco built COMBAT 360 to forge a new generation of fighters — disciplined, complete, and unbreakable.',
+        'Former professional MMA fighter with 14 years inside the cage and over a decade coaching world-class athletes. Vikram built COMBAT 360 to forge a new generation of fighters — disciplined, complete, and unbreakable.',
         'His philosophy fuses elite striking, world-class grappling, and the mental edge of a champion. Every athlete he trains learns to fight smart, recover sharp, and live with intent.'
       ],
       stats: [
@@ -130,11 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     coach2: {
-      name: 'Diego Salazar',
+      name: 'Aryan Sharma',
       role: 'Muay Thai Head Coach',
       img: 'assets/images/coach-2.jpg',
       bio: [
-        'Lumpinee-trained Muay Thai specialist with 80+ professional bouts in Thailand and Europe. Diego brings a relentless, technical style sharpened by a decade in the ring.',
+        'Lumpinee-trained Muay Thai specialist with 80+ professional bouts in Thailand and Europe. Aryan brings a relentless, technical style sharpened by a decade in the ring.',
         'He coaches striking with surgical precision — clinch work, elbows, low-kick destruction — and prepares amateurs and pros alike for the highest level of competition.'
       ],
       stats: [
@@ -145,11 +145,11 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     coach3: {
-      name: 'Aria Volkov',
+      name: 'Ananya Iyer',
       role: 'BJJ & Grappling Coach',
       img: 'assets/images/coach-3.jpg',
       bio: [
-        'Brown-to-black belt under the Mendes brothers, ADCC trials competitor and former national wrestling champion. Aria runs the most technical grappling program in the city.',
+        'Brown-to-black belt under the Mendes brothers, ADCC trials competitor and former national wrestling champion. Ananya runs the most technical grappling program in the city.',
         'Her approach blends modern no-gi systems, traditional jiu-jitsu fundamentals, and competition-tested wrestling — built so any athlete can dominate where the fight goes.'
       ],
       stats: [
@@ -236,5 +236,54 @@ document.addEventListener('DOMContentLoaded', () => {
         if (heroGlove) heroGlove.style.transform = `translateY(${y * -0.15}px) rotate(${-8 + y * 0.02}deg)`;
       }
     }, { passive: true });
+  }
+
+  // ---------- 3D Tilt Effect ----------
+  const tiltElements = document.querySelectorAll('.program-card, .coach-card, .price-card');
+  
+  const handleTilt = (e, el) => {
+      const rect = el.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = (centerY - y) / 15;
+      const rotateY = (x - centerX) / 15;
+      
+      // Update Shine Position
+      el.style.setProperty('--x', `${(x / rect.width) * 100}%`);
+      el.style.setProperty('--y', `${(y / rect.height) * 100}%`);
+
+      el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+  };
+
+  tiltElements.forEach(el => {
+    el.addEventListener('mousemove', (e) => handleTilt(e, el));
+    el.addEventListener('touchmove', (e) => {
+        handleTilt(e, el);
+    }, { passive: true });
+
+    const resetTilt = () => {
+      el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    };
+
+    el.addEventListener('mouseleave', resetTilt);
+    el.addEventListener('touchend', resetTilt);
+  });
+
+  // ---------- Hero 3D Glove Interaction ----------
+  if (heroGlove) {
+    document.addEventListener('mousemove', (e) => {
+      const moveX = (e.clientX - window.innerWidth / 2) * 0.02;
+      const moveY = (e.clientY - window.innerHeight / 2) * 0.02;
+      // Combine with existing floating animation in CSS by using a wrapper or applying style
+      heroGlove.style.left = `calc(50% + ${moveX}px)`; // Relative offset
+      heroGlove.style.filter = `drop-shadow(${moveX * -1}px ${moveY * -1}px 60px rgba(200,16,46,0.35))`;
+    });
   }
 });
