@@ -205,28 +205,28 @@ section{padding:7rem 0;position:relative}
 /* ============== HERO ============== */
 .hero{
   min-height:100vh;position:relative;display:flex;align-items:center;
-  overflow:hidden;padding:15rem 0 6rem; /* Shifted down: increased top padding from 8rem to 15rem */
+  overflow:hidden;padding:20rem 0 6rem; /* Shifted further down to make video subject 100% visible */
 }
 
 /* New: Video Background for Hero */
 .hero-video-background {
-  position:absolute;inset:0;z-index:1;
+  position:absolute;inset:0;z-index:0;
   background: var(--black); /* Fallback background */
 }
 .hero-video-background video {
   position: absolute;
   top: 50%;
   left: 50%;
-  /* Hardware acceleration and rotation */
+  /* Fixed: 270deg rotation with hardware acceleration for lag-free playback */
   transform: translate(-50%, -50%) rotate(270deg) translateZ(0);
   will-change: transform;
-  /* Swap dimensions: rotated width must cover height, rotated height must cover width */
-  min-width: 100vh; 
+  /* When rotating 270deg, we must swap viewport width/height to cover the screen */
+  min-width: 100vh;
   min-height: 100vw;
   width: auto;
   height: auto;
   object-fit: cover;
-  filter: brightness(0.75); /* Simplified filters to reduce GPU paint cost */
+  filter: brightness(0.7);
   display: block;
 }
 .hero-video-background::after {

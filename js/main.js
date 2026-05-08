@@ -264,37 +264,41 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ---------- Cinematic GSAP Hero Animations ----------
-  if (typeof gsap !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    try {
+      gsap.registerPlugin(ScrollTrigger);
+    } catch (e) {
+      console.warn("ScrollTrigger failed to register:", e);
+    }
 
     // 2. Mouse-Reactive Lighting & Parallax
     const heroLighting = document.querySelector('.hero-lighting');
     const heroSection = document.querySelector('.hero');
 
-    if (heroSection) {
+    if (heroSection && heroLighting) {
       heroSection.addEventListener('mousemove', (e) => {
         const { clientX, clientY } = e;
         const xPos = (clientX / window.innerWidth) * 100;
         const yPos = (clientY / window.innerHeight) * 100;
 
-        if(heroLighting) {
-          heroLighting.style.setProperty('--mouse-x', `${xPos}%`);
-          heroLighting.style.setProperty('--mouse-y', `${yPos}%`);
-        }
+        heroLighting.style.setProperty('--mouse-x', `${xPos}%`);
+        heroLighting.style.setProperty('--mouse-y', `${yPos}%`);
       });
     }
 
     // 4. Hero Text Stagger
-    gsap.from('.hero h1 .line span', {
-      y: 100, rotateX: -45, opacity: 0, duration: 1.2, stagger: 0.15, ease: "power4.out", delay: 0.5
-    });
+    if (document.querySelector('.hero h1 .line span')) {
+      gsap.from('.hero h1 .line span', {
+        y: 100, rotateX: -45, opacity: 0, duration: 1.2, stagger: 0.15, ease: "power4.out", delay: 0.5
+      });
+    }
 
     // 5. Cinematic Red Embers System
     // PERFORMANCE: We use a limited count (30) to keep FPS high.
     // GSAP transforms are GPU-accelerated for smooth motion.
     const particleContainer = document.querySelector('.hero-particles');
     if (particleContainer) {
-      const emberCount = 15; // Reduced for performance optimization
+      const emberCount = 10; // Further optimized for lag-free experience
       for (let i = 0; i < emberCount; i++) {
         const ember = document.createElement('div');
         ember.className = 'ember';
