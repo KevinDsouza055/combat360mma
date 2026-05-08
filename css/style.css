@@ -211,29 +211,33 @@ section{padding:7rem 0;position:relative}
 /* New: Video Background for Hero */
 .hero-video-background {
   position:absolute;inset:0;z-index:0;
-  background: var(--black); /* Fallback background */
+  background: transparent; /* Removed black fallback to prevent "surprising" flashes */
 }
 .hero-video-background video {
   position: absolute;
   top: 50%;
   left: 50%;
-  /* Fixed: 270deg rotation with hardware acceleration for lag-free playback */
-  transform: translate(-50%, -50%) rotate(270deg) translateZ(0);
-  will-change: transform;
+  /* GPU-Accelerated Rotation: translate3d is faster than translate/translateZ */
+  transform: translate3d(-50%, -50%, 0) rotate(270deg);
+  will-change: transform; 
+  backface-visibility: hidden;
+  perspective: 1000;
+  
   /* When rotating 270deg, we must swap viewport width/height to cover the screen */
   min-width: 100vh;
   min-height: 100vw;
   width: auto;
   height: auto;
   object-fit: cover;
-  filter: brightness(0.7);
   display: block;
+  filter: none; /* Removing filter from video to stop lag */
 }
 .hero-video-background::after {
   content:"";position:absolute;inset:0;
   background:
-    linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 70%, #0a0a0a 100%),
-    radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+    /* We move the darkening here: adding a solid 30% black layer + gradient */
+    linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 70%, #0a0a0a 100%),
+    radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
   z-index: 2; /* Above the video, below other atmospheric effects */
 }
 
