@@ -225,19 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: .4 });
   counters.forEach(c => counterObs.observe(c));
 
-  // ---------- Hero parallax ----------
-  const heroBg = document.querySelector('.hero-bg');
-  const heroGlove = document.querySelector('.hero-glove');
-  if (heroBg) {
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      if (y < 800) {
-        heroBg.style.transform = `translateY(${y * 0.25}px) scale(1.05)`;
-        if (heroGlove) heroGlove.style.transform = `translateY(${y * -0.15}px) rotate(${-8 + y * 0.02}deg)`;
-      }
-    }, { passive: true });
-  }
-
   // ---------- 3D Tilt Effect ----------
   const tiltElements = document.querySelectorAll('.program-card, .coach-card, .price-card');
   
@@ -280,17 +267,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof gsap !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
-    // 1. Premium Glove Floating & Rotation
-    // This simulates a 3D rotating metallic object
-    const gloveTimeline = gsap.timeline({
-      repeat: -1,
-      defaults: { duration: 4, ease: "sine.inOut" }
-    });
-
-    gloveTimeline
-      .to('.hero-glove', { y: -30, rotationZ: -12, rotationY: 10, rotationX: 5 })
-      .to('.hero-glove', { y: 0, rotationZ: -8, rotationY: -15, rotationX: 10 });
-
     // 2. Mouse-Reactive Lighting & Parallax
     const heroLighting = document.querySelector('.hero-lighting');
     const heroSection = document.querySelector('.hero');
@@ -301,27 +277,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const xPos = (clientX / window.innerWidth) * 100;
         const yPos = (clientY / window.innerHeight) * 100;
 
-        // Update CSS variable for the spotlight
-        heroLighting.style.setProperty('--mouse-x', `${xPos}%`);
-        heroLighting.style.setProperty('--mouse-y', `${yPos}%`);
-
-        // Micro-parallax on the glove based on mouse position
-        gsap.to('.hero-glove-wrapper', {
-          x: (clientX - window.innerWidth / 2) * 0.03,
-          y: (clientY - window.innerHeight / 2) * 0.03,
-          duration: 1,
-          ease: "power2.out"
-        });
+        if(heroLighting) {
+          heroLighting.style.setProperty('--mouse-x', `${xPos}%`);
+          heroLighting.style.setProperty('--mouse-y', `${yPos}%`);
+        }
       });
     }
-
-    // 3. Scroll-Triggered Cinematic Reveal
-    gsap.to('.hero-glove', {
-      scrollTrigger: {
-        trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true
-      },
-      y: 150, scale: 1.1, rotationY: 45, opacity: 0.2, filter: 'blur(10px)'
-    });
 
     // 4. Hero Text Stagger
     gsap.from('.hero h1 .line span', {
@@ -333,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // GSAP transforms are GPU-accelerated for smooth motion.
     const particleContainer = document.querySelector('.hero-particles');
     if (particleContainer) {
-      const emberCount = 30; // Customize: Increase for density, decrease for performance.
+      const emberCount = 15; // Reduced for performance optimization
       for (let i = 0; i < emberCount; i++) {
         const ember = document.createElement('div');
         ember.className = 'ember';
