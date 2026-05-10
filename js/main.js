@@ -135,35 +135,44 @@ document.addEventListener('DOMContentLoaded', () => {
   const counters = document.querySelectorAll('.stat-num[data-count]');
   const counterObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (!e.isIntersecting) return;
+      if (!e.isIntersecting) {
+        return;
+      }
+
       const el = e.target;
       const target = parseInt(el.dataset.count, 10);
       const suffix = el.dataset.suffix || '';
       let n = 0;
       const step = Math.max(1, Math.floor(target / 60));
+
       const t = setInterval(() => {
         n += step;
-        if (n >= target) { n = target; clearInterval(t); }
+        if (n >= target) {
+          n = target;
+          clearInterval(t);
+        }
         el.textContent = n + suffix;
       }, 24);
+
       counterObs.unobserve(el);
     });
   }, { threshold: .4 });
+
   counters.forEach(c => counterObs.observe(c));
 
   // ---------- 3D Tilt Effect ----------
   const tiltElements = document.querySelectorAll('.coach-card, .price-card');
-  
-  const handleTilt = (e, el) => {
-      const rect = el.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-      const x = clientX - rect.left;
-      const y = clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
+  const handleTilt = (e, el) => {
+    const rect = el.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
       
       const rotateX = (centerY - y) / 15;
       const rotateY = (x - centerX) / 15;
@@ -202,8 +211,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroSection = document.querySelector('.hero');
 
     if (heroSection && heroLighting) {
-      heroSection.addEventListener('mousemove', (e) => {
-        const { clientX, clientY } = e;
+      heroSection.addEventListener('mousemove', function(e) {
+        const clientX = e.clientX;
+        const clientY = e.clientY;
         const xPos = (clientX / window.innerWidth) * 100;
         const yPos = (clientY / window.innerHeight) * 100;
 
@@ -213,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. Hero Text Stagger
-    if (document.querySelector('.hero h1 .line span')) {
+    if (typeof gsap !== 'undefined' && document.querySelector('.hero h1 .line span')) {
       gsap.from('.hero h1 .line span', {
         y: 100, rotateX: -45, opacity: 0, duration: 1.2, stagger: 0.15, ease: "power4.out", delay: 0.5
       });
@@ -222,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Cinematic Red Embers System
     // PERFORMANCE: We use a limited count (30) to keep FPS high.
     // GSAP transforms are GPU-accelerated for smooth motion.
-    const particleContainer = document.querySelector('.hero-particles');
+    const particleContainer = typeof gsap !== 'undefined' ? document.querySelector('.hero-particles') : null;
     if (particleContainer) {
       const emberCount = 10; // Further optimized for lag-free experience
       for (let i = 0; i < emberCount; i++) {
