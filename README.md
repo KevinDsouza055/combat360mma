@@ -10,13 +10,13 @@ A complete production-ready multi-page website for a premium MMA gym, built with
 ## Pages
 1. `index.html` — Home (cinematic hero, philosophy, coaches, testimonials, CTA)
 2. `about.html` — Story, values
-3. `coaches.html` — Team + interactive owner spotlight
-4. `gallery.html` — Masonry gallery
-5. `pricing.html` — 3 membership tiers
-6. `booking.html` — Trial-class booking form (validation + snackbar)
-7. `testimonials.html` — Reviews grid
-8. `contact.html` — Contact info + form
-9. `faq.html` — Accordion FAQ
+3. `gallery.html` — Masonry gallery
+4. `pricing.html` — 3 membership tiers
+5. `booking.html` — Trial-class booking form (validation + snackbar)
+6. `testimonials.html` — Reviews grid
+7. `contact.html` — Contact info + form
+8. `faq.html` — Accordion FAQ
+9. `fight-store.html` — Official gear shop
 
 ## Folder Structure
 ```
