@@ -8,16 +8,15 @@ A complete production-ready multi-page website for a premium MMA gym, built with
 - Google Fonts — Bebas Neue + Inter
 
 ## Pages
-1. `index.html` — Home (cinematic hero, philosophy, programs, coaches, testimonials, CTA)
+1. `index.html` — Home (cinematic hero, philosophy, coaches, testimonials, CTA)
 2. `about.html` — Story, values
-3. `programs.html` — All 7 programs
-4. `coaches.html` — Team + interactive owner spotlight
-5. `gallery.html` — Masonry gallery
-6. `pricing.html` — 3 membership tiers
-7. `booking.html` — Trial-class booking form (validation + snackbar)
-8. `testimonials.html` — Reviews grid
-9. `contact.html` — Contact info + form
-10. `faq.html` — Accordion FAQ
+3. `coaches.html` — Team + interactive owner spotlight
+4. `gallery.html` — Masonry gallery
+5. `pricing.html` — 3 membership tiers
+6. `booking.html` — Trial-class booking form (validation + snackbar)
+7. `testimonials.html` — Reviews grid
+8. `contact.html` — Contact info + form
+9. `faq.html` — Accordion FAQ
 
 ## Folder Structure
 ```

@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
   counters.forEach(c => counterObs.observe(c));
 
   // ---------- 3D Tilt Effect ----------
-  const tiltElements = document.querySelectorAll('.program-card, .coach-card, .price-card');
+  const tiltElements = document.querySelectorAll('.coach-card, .price-card');
   
   const handleTilt = (e, el) => {
       const rect = el.getBoundingClientRect();

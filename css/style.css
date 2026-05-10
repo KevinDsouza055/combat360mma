@@ -417,52 +417,6 @@ section{padding:7rem 0;position:relative}
 .stat-label{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gray);margin-top:.5rem}
 @media(max-width:768px){.stats{grid-template-columns:repeat(2,1fr)}}
 
-/* ============== PROGRAMS ============== */
-.programs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
-@media(max-width:900px){.programs-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.programs-grid{grid-template-columns:1fr}}
-.program-card{
-  position:relative;border-radius:var(--radius);overflow:hidden;
-  aspect-ratio:4/5;background:var(--black-3);cursor:pointer;
-  transition:transform .1s ease-out, box-shadow .5s var(--ease);
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  will-change: transform;
-  border: 1px solid rgba(0,0,0,.05);
-}
-.program-card:hover{box-shadow: 0 20px 50px rgba(255,193,7,0.15);}
-
-/* Dynamic Shine Effect for high-end feel */
-.program-card::before, .coach-card::before, .price-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0,0,0,0.05) 0%, transparent 60%);
-  z-index: 5;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s var(--ease);
-}
-.program-card:active::before, .coach-card:active::before, .price-card:active::before,
-.program-card:hover::before, .coach-card:hover::before, .price-card:hover::before { opacity: 1; }
-
-.program-card .pc-bg{
-  position:absolute;inset:0;background-size:cover;background-position:center;
-  filter:grayscale(.3) brightness(.7);transition:all .8s var(--ease);
-}
-.program-card:hover .pc-bg{filter:grayscale(0) brightness(.85);transform:scale(1.08)}
-.program-card::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.92));
-}
-.program-card .pc-content{
-  position:absolute;inset:0;z-index:2;padding:1.8rem;
-  display:flex;flex-direction:column;justify-content:space-between;
-  transform: translateZ(50px); /* Lifts content off the background */
-}
-.program-card .num{font-family:'Bebas Neue',sans-serif;color:rgba(255,255,255,.4);font-size:1rem;letter-spacing:.2em}
-.program-card .info h3{font-size:2rem;margin-bottom:.5rem}
-.program-card .info p{font-size:.85rem;color:rgba(255,255,255,.65);margin-bottom:.8rem}
 .chip{
   display:inline-block;padding:.3rem .7rem;font-size:.65rem;
   letter-spacing:.2em;text-transform:uppercase;color:#fff;
@@ -828,12 +782,6 @@ footer{padding:5rem 0 2rem;background:var(--black-2);border-top:1px solid rgba(0
   .nav-logo{font-size:1.2rem}
   .nav-logo img{height: 36px;}
   .hamburger{width:36px;height:36px} /* Smaller hamburger icon */
-
-  /* Program cards adjustments */
-  .programs-grid{gap: 1rem;}
-  .program-card{aspect-ratio: 1/1;} /* Smaller cards on mobile */
-  .program-card .pc-content{padding: 1rem;}
-  .program-card .info h3{font-size:1.4rem}
 
   /* Coach cards and modal adjustments */
   .coach-info{padding:1.2rem}
