@@ -222,6 +222,22 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // 6. 3D Cage Scroll Reaction
+    const cageWrapper = document.querySelector('.cage-wrapper');
+    const cageSection = document.querySelector('.cage-3d-section');
+    if (cageWrapper && cageSection) {
+      let cageOffset = cageSection.offsetTop;
+      window.addEventListener('resize', () => { cageOffset = cageSection.offsetTop; });
+      
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const relativeScroll = (scrolled - (cageOffset - window.innerHeight)) / window.innerHeight;
+        if (relativeScroll > 0 && relativeScroll < 2) {
+          gsap.to(cageWrapper, { rotateX: -22 + (relativeScroll * 10), duration: 0.5, ease: "power1.out" });
+        }
+      }, { passive: true });
+    }
+
     // 4. Hero Text Stagger
     if (typeof gsap !== 'undefined' && document.querySelector('.hero h1 .line span')) {
       gsap.from('.hero h1 .line span', {

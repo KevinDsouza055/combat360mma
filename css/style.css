@@ -311,7 +311,7 @@ section {
   height: auto;
   object-fit: cover;
   display: block;
-  filter: brightness(1.1) contrast(1.1);
+  filter: none; /* Removed filters to significantly reduce GPU load per frame */
 }
 .hero-video-background::after {
   content:"";position:absolute;inset:0;
@@ -332,7 +332,7 @@ section {
 .hero-smoke::after {
   content: ""; position: absolute; inset: 0;
   background: radial-gradient(circle at 50% 50%, rgba(255,193,7,0.1), transparent 70%);
-  filter: blur(60px); animation: smokeDrift 20s linear infinite;
+  filter: blur(30px); animation: smokeDrift 20s linear infinite; /* Reduced blur radius for better performance */
 }
 @keyframes smokeDrift {
   0% { transform: translate(-5%) rotate(0deg) scale(1); }
@@ -357,9 +357,8 @@ section {
 }
 
 .hero-grain {
-  position:absolute;inset:0;z-index: 6;opacity:.07;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  filter: invert(1);
+  display: none; /* SVG Turbulence is extremely heavy; disabled to prioritize video smoothness */
+  position:absolute;inset:0;z-index: 6;opacity:.05;pointer-events:none;
 }
 .hero .container{position:relative;z-index:20} /* Higher z-index to ensure visibility */
 .hero-tag{
