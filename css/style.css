@@ -106,7 +106,7 @@ section{padding:7rem 0;position:relative}
 .nav-links a{
   position:relative;padding:.55rem 1rem;
   font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
-  color:rgba(255,255,255,.78);transition:color .3s var(--ease);
+  color:rgba(0,0,0,0.55);transition:color .3s var(--ease);
 }
 .nav-links a::after{
   content:"";position:absolute;left:50%;bottom:6px;width:0;height:2px;
@@ -117,7 +117,7 @@ section{padding:7rem 0;position:relative}
 .nav-links a:hover::after,.nav-links a.active::after{width:60%}
 
 .nav-cta{
-  padding:.7rem 1.3rem;background:var(--blood);color:#fff;
+  padding:.7rem 1.3rem;background:var(--blood);color:var(--black);
   border-radius:999px;font-size:.78rem;font-weight:700;
   letter-spacing:.12em;text-transform:uppercase;
   transition:all .3s var(--ease);
@@ -201,10 +201,10 @@ section{padding:7rem 0;position:relative}
 .btn-primary{background:var(--blood);color:#fff;box-shadow:0 0 0 0 var(--blood-glow)}
 .btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 40px var(--blood-glow)}
 .btn-ghost{
-  border:1px solid rgba(255,255,255,.2);color:#fff;
-  background:rgba(255,255,255,.03);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.12);color:var(--off-white);
+  background:rgba(0,0,0,.03);backdrop-filter:blur(10px);
 }
-.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08);transform:translateY(-3px)}
+.btn-ghost:hover{border-color:var(--white);background:rgba(0,0,0,.06);transform:translateY(-3px)}
 .btn .arrow{transition:transform .35s var(--ease)}
 .btn:hover .arrow{transform:translateX(4px)}
 
@@ -701,7 +701,7 @@ section{padding:7rem 0;position:relative}
 /* Floating CTA */
 .float-cta{
   position:fixed;right:24px;bottom:24px;z-index:900;
-  background:var(--yellow);color:var(--black);padding:1rem 1.4rem;border-radius:999px;
+  background:var(--yellow);color:var(--off-white);padding:1rem 1.4rem;border-radius:999px;
   font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
   box-shadow:0 10px 40px var(--yellow-glow);
   display:none;align-items:center;gap:.6rem;transition:all .3s var(--ease);
@@ -739,6 +739,7 @@ footer{padding:5rem 0 2rem;background:var(--black-2);border-top:1px solid rgba(0
   transition:all .3s var(--ease);
 }
 .socials a:hover{background:var(--yellow);border-color:var(--yellow);color:var(--black);transform:translateY(-3px)}
+.socials a svg{width:18px;height:18px;stroke-width:2px}
 .foot-bottom{
   border-top:1px solid rgba(0,0,0,.06);padding-top:2rem;
   display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
@@ -786,20 +787,22 @@ footer{padding:5rem 0 2rem;background:var(--black-2);border-top:1px solid rgba(0
 /* Premium Button Conversion Colors */
 .btn-primary {
   background: var(--yellow);
-  color: var(--black);
+  color: var(--off-white);
   box-shadow: 0 4px 15px var(--yellow-glow);
 }
 .btn-primary:hover {
-  background: var(--white);
+  background: var(--off-white);
+  color: var(--black);
   transform: translateY(-3px);
   box-shadow: 0 14px 40px var(--yellow-glow);
 }
 .nav-cta {
   background: var(--yellow);
-  color: var(--black);
+  color: var(--off-white);
 }
 .nav-cta:hover {
-  background: var(--white);
+  background: var(--off-white);
+  color: var(--black);
   box-shadow: 0 8px 30px var(--yellow-glow);
 }
 
