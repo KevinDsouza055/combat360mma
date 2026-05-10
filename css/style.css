@@ -8,7 +8,7 @@
   --black-3:#eeeeee;
   --off-white:#1a1a1a;
   --white:#0a0a0a;
-  --gray:#666666;
+  --gray:#444444; /* Darkened for better visibility on white backgrounds */
   --gray-2:#dddddd;
   --metal:#c9c9c9;
   --blood:#c8102e;
@@ -28,7 +28,7 @@ body{
   color:var(--off-white);
   line-height:1.6;
   overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
+  -webkit-font-smoothing: antialiased;
   font-feature-settings:"ss01";
 }
 img{display:block;max-width:100%;height:auto}
@@ -79,12 +79,13 @@ section{padding:7rem 0;position:relative}
   width:calc(100% - 32px);max-width:1320px;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
   padding:14px 22px;
-  background:rgba(255,255,255,.75);
-  backdrop-filter:blur(18px) saturate(160%);
-  -webkit-backdrop-filter:blur(18px) saturate(160%);
-  border:1px solid rgba(0,0,0,.08);
+  background: rgba(255, 255, 255, 0.6); /* More transparent for modern glass feel */
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius:999px;
   transition:all .4s var(--ease);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.05);
 }
 .nav.scrolled{
   background:rgba(255,255,255,.95);
@@ -92,12 +93,15 @@ section{padding:7rem 0;position:relative}
   top:10px;
 }
 .nav-logo{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.4rem;letter-spacing:.18em;color:#fff;
   display:flex;align-items:center;gap:.5rem;
-  color:var(--white);
 }
-.nav-logo span{color:var(--blood)}
+.nav-logo img {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  filter: brightness(1.1);
+}
 .nav-links{display:flex;gap:.4rem;list-style:none}
 .nav-links a{
   position:relative;padding:.55rem 1rem;
@@ -237,8 +241,8 @@ section{padding:7rem 0;position:relative}
 .hero-video-background::after {
   content:"";position:absolute;inset:0;
   background:
-    /* Light theme fading */
-    linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.4) 60%, var(--black) 100%),
+    /* Darkened the top gradient slightly to make white text and floating nav pop more */
+    linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(255,255,255,0.3) 60%, var(--black) 100%),
     radial-gradient(circle at center, transparent 0%, rgba(255,255,255,0.3) 100%);
   z-index: 2; /* Above the video, below other atmospheric effects */
 }
@@ -304,6 +308,7 @@ section{padding:7rem 0;position:relative}
 .hero h1{
   font-size:clamp(3.5rem,11vw,9.5rem);
   margin-bottom:1.5rem;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.4); /* Enhanced visibility */
 }
 .hero h1 .line{display:block;overflow:hidden}
 .hero h1 .line span{display:inline-block}
@@ -311,6 +316,7 @@ section{padding:7rem 0;position:relative}
 .hero-sub{
   max-width:560px;font-size:1.05rem;color:rgba(0,0,0,.65);
   margin-bottom:2.5rem;
+  font-weight: 500; /* Increased weight for visibility */
 }
 .hero-actions{display:flex;flex-wrap:wrap;gap:1rem}
 .hero-meta{
